@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>我的家乡-广州介绍</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: "微软雅黑";
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        #container {
+            height: 500px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .attraction-card {
+            display: flex;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .attraction-img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>欢迎来到我的家乡 - 广州</h1>
+
+    <div class="content-section">
+        <h2>城市简介</h2>
+        <p>广州是中国南方重要的中心城市，拥有2200多年建城史，既是千年商都也是美食天堂。这里既有现代化的珠江新城，也有充满历史韵味的西关大屋。</p>
+    </div>
+
+    <div class="content-section">
+        <h2>著名景点</h2>
+
+        <div class="attraction-card">
+            <img src="https://img.17sucai.com/upload/70418/2016-04-13/b4c505c36032dc1784a2748a0e727991.gif?x-oss-process=style/big"
+                class="attraction-img" alt="广州塔">
+            <div>
+                <h3>广州塔</h3>
+                <p>昵称"小蛮腰"，总高度600米，是中国第一高塔。塔顶设有世界最高摩天轮和极速云霄游乐项目。</p>
+            </div>
+        </div>
+
+        <div class="attraction-card">
+            <img src="https://img1.qunarzz.com/travel/d8/1702/16/a7df7c5b782d91b5.jpg_r_640x426x70_a61cc21e.jpg"
+                class="attraction-img" alt="越秀公园">
+            <div>
+                <h3>越秀公园</h3>
+                <p>广州最大的综合性公园，内有五羊雕像、镇海楼等著名景点，是城市中心的绿肺。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>城市宣传视频</h2>
+        <!-- Bilibili视频嵌入 -->
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1Ys4y1j7hc&page=1" scrolling="no" border="0"
+            frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 450px;">
+        </iframe>
+    </div>
+
+    <h2>景点地图分布</h2>
+    <div id="container"></div>
+
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=0A5bc3c4fb543c8f9bc54b77bc155724"></script>
+    <script>
+        // 初始化地图
+        var map = new BMap.Map("container");
+        var cityCenter = new BMap.Point(113.264359, 23.129110); // 广州中心坐标
+        map.centerAndZoom(cityCenter, 12);
+        map.enableScrollWheelZoom(true);
+
+        // 添加景点标注
+        var attractions = [
+            {
+                name: "广州塔",
+                point: new BMap.Point(113.331075, 23.112047),
+                info: "高度600米，中国第一高塔"
+            },
+            {
+                name: "越秀公园",
+                point: new BMap.Point(113.272117, 23.146421),
+                info: "广州最大综合性公园"
+            },
+        ];
+
+        attractions.forEach(function (attraction) {
+            var marker = new BMap.Marker(attraction.point);
+            var infoWindow = new BMap.InfoWindow("<h4>" + attraction.name + "</h4><p>" + attraction.info + "</p>");
+
+            marker.addEventListener("click", function () {
+                this.openInfoWindow(infoWindow);
+            });
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+            map.addOverlay(marker);
+        });
+    </script>
+</body>
+
+</html>
