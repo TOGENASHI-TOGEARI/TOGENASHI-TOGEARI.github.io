@@ -6,122 +6,445 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>我的家乡-广州介绍</title>
     <style>
-        body {
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2980b9;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            font-family: "微软雅黑";
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg,
+                    #f1c40f, #e67e22, #e74c3c, #9b59b6,
+                    #3498db, #2ecc71, #f1c40f);
+            background-size: 700% 100%;
+            animation: rainbow 8s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s both;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+            animation: fadeIn 0.8s both 0.2s;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        h2:hover::after {
+            width: 100px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
         .content-section {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
             margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s both;
         }
 
-        #container {
-            height: 500px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .attraction-card {
             display: flex;
+            flex-direction: column;
             margin: 20px 0;
-            padding: 15px;
-            background: #f5f5f5;
+            padding: 0;
+            background: var(--card-bg);
             border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.8s both;
+        }
+
+        .attraction-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .attraction-img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
         }
 
         .attraction-img {
-            width: 200px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            margin-right: 15px;
-            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .attraction-card:hover .attraction-img {
+            transform: scale(1.1);
+        }
+
+        .attraction-info {
+            padding: 20px;
         }
 
         iframe {
             width: 100%;
-            max-width: 800px;
             height: 450px;
             border: none;
             border-radius: 10px;
             margin: 20px 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.8s both 0.4s;
+        }
+
+        iframe:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #map-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            overflow: hidden;
+            transition: var(--transition);
+            animation: fadeIn 0.8s both 0.6s;
+        }
+
+        #map-container:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            margin-top: 50px;
+            animation: fadeIn 0.8s both 0.8s;
+        }
+
+        /* 动画关键帧 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (min-width: 768px) {
+            .attraction-card {
+                flex-direction: row;
+                height: 200px;
+            }
+
+            .attraction-img-container {
+                width: 300px;
+                height: 100%;
+                flex-shrink: 0;
+            }
+
+            .attraction-info {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .attractions-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .attraction-card {
+                margin: 0;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>欢迎来到我的家乡 - 广州</h1>
+    <header>
+        <h1>欢迎来到我的家乡 - 广州</h1>
+        <p>千年商都 · 美食天堂 · 活力之城</p>
+    </header>
 
-    <div class="content-section">
-        <h2>城市简介</h2>
-        <p>广州是中国南方重要的中心城市，拥有2200多年建城史，既是千年商都也是美食天堂。这里既有现代化的珠江新城，也有充满历史韵味的西关大屋。</p>
-    </div>
+    <div class="container">
+        <div class="content-section" style="animation-delay: 0.2s">
+            <h2>城市简介</h2>
+            <p>广州是中国南方重要的中心城市，拥有2200多年建城史，既是千年商都也是美食天堂。这里既有现代化的珠江新城，也有充满历史韵味的西关大屋。</p>
+            <p>作为广东省省会，广州是粤港澳大湾区的核心引擎之一，也是"一带一路"的重要枢纽城市。广州塔、珠江夜游、早茶文化、广交会等都是这座城市的亮丽名片。</p>
+        </div>
 
-    <div class="content-section">
-        <h2>著名景点</h2>
+        <div class="content-section" style="animation-delay: 0.3s">
+            <h2>著名景点</h2>
+            <div class="attractions-grid">
+                <div class="attraction-card" style="animation-delay: 0.4s">
+                    <div class="attraction-img-container">
+                        <img src="https://img.17sucai.com/upload/70418/2016-04-13/b4c505c36032dc1784a2748a0e727991.gif?x-oss-process=style/big"
+                            class="attraction-img" alt="广州塔">
+                    </div>
+                    <div class="attraction-info">
+                        <h3>广州塔</h3>
+                        <p>昵称"小蛮腰"，总高度600米，是中国第一高塔。塔顶设有世界最高摩天轮和极速云霄游乐项目，是广州的地标性建筑。</p>
+                    </div>
+                </div>
 
-        <div class="attraction-card">
-            <img src="https://img.17sucai.com/upload/70418/2016-04-13/b4c505c36032dc1784a2748a0e727991.gif?x-oss-process=style/big"
-                class="attraction-img" alt="广州塔">
-            <div>
-                <h3>广州塔</h3>
-                <p>昵称"小蛮腰"，总高度600米，是中国第一高塔。塔顶设有世界最高摩天轮和极速云霄游乐项目。</p>
+                <div class="attraction-card" style="animation-delay: 0.5s">
+                    <div class="attraction-img-container">
+                        <img src="https://img1.qunarzz.com/travel/d8/1702/16/a7df7c5b782d91b5.jpg_r_640x426x70_a61cc21e.jpg"
+                            class="attraction-img" alt="越秀公园">
+                    </div>
+                    <div class="attraction-info">
+                        <h3>越秀公园</h3>
+                        <p>广州最大的综合性公园，内有五羊雕像、镇海楼等著名景点，是城市中心的绿肺，展现了广州的历史文化与自然风光。</p>
+                    </div>
+                </div>
+
+                <div class="attraction-card" style="animation-delay: 0.6s">
+                    <div class="attraction-img-container">
+                        <img src="https://youimg1.c-ctrip.com/target/10021a0000018rl130B09.jpg" class="attraction-img"
+                            alt="陈家祠">
+                    </div>
+                    <div class="attraction-info">
+                        <h3>陈家祠</h3>
+                        <p>广东民间工艺博物馆所在地，集岭南建筑艺术之大成，被誉为"岭南建筑艺术明珠"，展示了精湛的雕刻和陶瓷工艺。</p>
+                    </div>
+                </div>
+
+                <div class="attraction-card" style="animation-delay: 0.7s">
+                    <div class="attraction-img-container">
+                        <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.92yUTU5MQEFg1EbexC2euAHaE7?rs=1&pid=ImgDetMain"
+                            class="attraction-img" alt="沙面岛">
+                    </div>
+                    <div class="attraction-info">
+                        <h3>沙面岛</h3>
+                        <p>广州最具欧陆风情的地方，岛上保留了大量19世纪末20世纪初的欧式建筑，是了解广州近代历史的重要窗口。</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="attraction-card">
-            <img src="https://img1.qunarzz.com/travel/d8/1702/16/a7df7c5b782d91b5.jpg_r_640x426x70_a61cc21e.jpg"
-                class="attraction-img" alt="越秀公园">
-            <div>
-                <h3>越秀公园</h3>
-                <p>广州最大的综合性公园，内有五羊雕像、镇海楼等著名景点，是城市中心的绿肺。</p>
-            </div>
+        <div class="content-section" style="animation-delay: 0.4s">
+            <h2>城市宣传视频</h2>
+            <!-- Bilibili视频嵌入 -->
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV1Ys4y1j7hc&page=1" scrolling="no" border="0"
+                frameborder="no" framespacing="0" allowfullscreen="true">
+            </iframe>
+        </div>
+
+        <div class="content-section" style="animation-delay: 0.5s">
+            <h2>景点地图分布</h2>
+            <div id="map-container"></div>
         </div>
     </div>
 
-    <div class="content-section">
-        <h2>城市宣传视频</h2>
-        <!-- Bilibili视频嵌入 -->
-        <iframe src="https://player.bilibili.com/player.html?bvid=BV1Ys4y1j7hc&page=1" scrolling="no" border="0"
-            frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 450px;">
-        </iframe>
-    </div>
-
-    <h2>景点地图分布</h2>
-    <div id="container"></div>
+    <footer>
+        <p>© 2025 广州城市介绍 | 设计制作：ddd</p>
+    </footer>
 
     <script src="http://api.map.baidu.com/api?v=2.0&ak=0A5bc3c4fb543c8f9bc54b77bc155724"></script>
     <script>
         // 初始化地图
-        var map = new BMap.Map("container");
+        var map = new BMap.Map("map-container");
         var cityCenter = new BMap.Point(113.264359, 23.129110); // 广州中心坐标
         map.centerAndZoom(cityCenter, 12);
         map.enableScrollWheelZoom(true);
+        map.setMapStyle({ style: 'light' });
 
         // 添加景点标注
         var attractions = [
             {
                 name: "广州塔",
                 point: new BMap.Point(113.331075, 23.112047),
-                info: "高度600米，中国第一高塔"
+                info: "高度600米，中国第一高塔",
+                icon: new BMap.Icon("https://api.map.baidu.com/images/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25),
+                    imageOffset: new BMap.Size(0, 0)
+                })
             },
             {
                 name: "越秀公园",
                 point: new BMap.Point(113.272117, 23.146421),
-                info: "广州最大综合性公园"
+                info: "广州最大综合性公园",
+                icon: new BMap.Icon("https://api.map.baidu.com/images/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25),
+                    imageOffset: new BMap.Size(0, -100)
+                })
             },
+            {
+                name: "陈家祠",
+                point: new BMap.Point(113.248722, 23.124678),
+                info: "岭南建筑艺术明珠",
+                icon: new BMap.Icon("https://api.map.baidu.com/images/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25),
+                    imageOffset: new BMap.Size(0, -200)
+                })
+            },
+            {
+                name: "沙面岛",
+                point: new BMap.Point(113.240833, 23.1075),
+                info: "广州最具欧陆风情的地方",
+                icon: new BMap.Icon("https://api.map.baidu.com/images/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25),
+                    imageOffset: new BMap.Size(0, -300)
+                })
+            }
         ];
 
-        attractions.forEach(function (attraction) {
-            var marker = new BMap.Marker(attraction.point);
+        attractions.forEach(function (attraction, index) {
+            var marker = new BMap.Marker(attraction.point, { icon: attraction.icon });
             var infoWindow = new BMap.InfoWindow("<h4>" + attraction.name + "</h4><p>" + attraction.info + "</p>");
+
+            // 延迟显示标记动画
+            setTimeout(function () {
+                map.addOverlay(marker);
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+
+                // 2秒后停止动画
+                setTimeout(function () {
+                    marker.setAnimation(null);
+                }, 2000);
+            }, index * 300);
 
             marker.addEventListener("click", function () {
                 this.openInfoWindow(infoWindow);
+                this.setAnimation(BMAP_ANIMATION_BOUNCE);
+
+                // 2秒后停止动画
+                setTimeout(function () {
+                    marker.setAnimation(null);
+                }, 2000);
             });
-            marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-            map.addOverlay(marker);
+        });
+
+        // 添加地图控件
+        map.addControl(new BMap.NavigationControl());
+        map.addControl(new BMap.ScaleControl());
+        map.addControl(new BMap.OverviewMapControl());
+
+        // 响应式调整地图大小
+        window.addEventListener('resize', function () {
+            map.checkResize();
         });
     </script>
 </body>
